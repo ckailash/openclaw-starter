@@ -1,0 +1,17 @@
+# Secrets
+.env.local
+.env
+*.tfvars
+!*.tfvars.example
+!*.env.example
+
+# Terraform
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/terraform.tfstate
+infra/terraform.tfstate.backup
+
+# Keys
+*.pem
+deploy/ssh/github_ed25519
+deploy/ssh/github_ed25519.pub

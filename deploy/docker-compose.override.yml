@@ -1,0 +1,27 @@
+# Passes API keys and mounts tools into the OpenClaw containers.
+# OPENCLAW_CONFIG_DIR is set by docker-setup.sh in /opt/openclaw-repo/.env (typically /root/.openclaw).
+services:
+  openclaw-gateway:
+    restart: unless-stopped
+    environment:
+      ALIBABA_CODING_API_KEY: ${ALIBABA_CODING_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_CREDITS_API_KEY: ${ANTHROPIC_CREDITS_API_KEY:-}
+      FIREWORKS_API_KEY: ${FIREWORKS_API_KEY:-}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GIT_SSH_COMMAND: ssh -i /home/node/.ssh/github_ed25519 -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null
+      GH_GIT_PROTOCOL: ssh
+    volumes:
+      - ${OPENCLAW_CONFIG_DIR}/.xurl:/home/node/.xurl
+      - ${OPENCLAW_CONFIG_DIR}/.ssh:/home/node/.ssh:ro
+      - ${OPENCLAW_CONFIG_DIR}/.gitconfig:/home/node/.gitconfig:ro
+      - /usr/local/bin/xurl:/usr/local/bin/xurl:ro
+      - /usr/bin/gh:/usr/bin/gh:ro
+  openclaw-cli:
+    environment:
+      ALIBABA_CODING_API_KEY: ${ALIBABA_CODING_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_CREDITS_API_KEY: ${ANTHROPIC_CREDITS_API_KEY:-}
+      FIREWORKS_API_KEY: ${FIREWORKS_API_KEY:-}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}

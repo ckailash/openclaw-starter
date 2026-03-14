@@ -1,0 +1,7 @@
+[user]
+	name = {{AGENT_NAME}}
+	email = {{AGENT_EMAIL}}
+[init]
+	defaultBranch = main
+[url "git@github.com:"]
+	insteadOf = https://github.com/
